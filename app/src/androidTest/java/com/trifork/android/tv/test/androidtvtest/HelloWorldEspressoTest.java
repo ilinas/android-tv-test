@@ -1,5 +1,6 @@
 package com.trifork.android.tv.test.androidtvtest;
 
+import android.os.SystemClock;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.v17.leanback.widget.RowHeaderView;
 import android.test.ActivityInstrumentationTestCase2;
@@ -74,14 +75,11 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
         onView(withText("Heat"))
                 .perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
 
+        SystemClock.sleep(800);
+
         onView(withId(R.id.device_control_slider))
-                .perform(
-                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
-                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
-                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
-                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
-                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT))
-                .check(matches(withProgressBetween(65, 75)));
+                .perform(pressKey(KeyEvent.KEYCODE_DPAD_RIGHT))
+                .check(matches(withProgressBetween(30, 60)));
     }
 
     public void testLightIsLightHeatIsHeat() {
