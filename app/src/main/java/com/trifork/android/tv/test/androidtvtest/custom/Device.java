@@ -8,12 +8,14 @@ public class Device implements Serializable {
     private Integer minVal;
     private Integer maxVal;
     private Integer value;
+    private int imageId;
 
-    public Device(String name, Integer minVal, Integer maxVal, Integer value) {
+    public Device(String name, Integer minVal, Integer maxVal, Integer value, int imageId) {
         this.name = name;
         this.minVal = minVal;
         this.maxVal = maxVal;
         this.value = value;
+        this.imageId = imageId;
     }
 
     public String getName() {
@@ -46,5 +48,13 @@ public class Device implements Serializable {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

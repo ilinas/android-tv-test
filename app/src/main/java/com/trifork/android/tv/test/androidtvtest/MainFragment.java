@@ -125,9 +125,9 @@ public class MainFragment extends BrowseFragment {
         ArrayObjectAdapter homeAutomationAdapter = new ArrayObjectAdapter(homeAutomationPresenter);
         HeaderItem homeAutomationHeader = new HeaderItem(i, "HOME AUTOMATION");
 
-        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_light), 0, 100, 25));
-        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_heat), 0, 100, 46));
-        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_lock), 0, 100, 67));
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_light), 0, 100, 25, R.drawable.icon_lamp));
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_heat), 0, 100, 46, R.drawable.icon_heat));
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_lock), 0, 100, 67, R.drawable.icon_lock));
         mRowsAdapter.add(new ListRow(homeAutomationHeader, homeAutomationAdapter));
 
         setAdapter(mRowsAdapter);
