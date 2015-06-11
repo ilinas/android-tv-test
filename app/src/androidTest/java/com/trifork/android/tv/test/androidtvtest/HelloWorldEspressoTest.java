@@ -1,9 +1,15 @@
 package com.trifork.android.tv.test.androidtvtest;
 
+import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.v17.leanback.widget.RowHeaderView;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.SeekBar;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -57,5 +63,38 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
         onView(withText("Personal Settings"))
                 .inRoot(withDecorView(not(getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
+    }
+
+    public void testSlider() {
+
+        onView(allOf(withText("HOME AUTOMATION"), instanceOf(RowHeaderView.class), isDescendantOfA(withId(R.id.browse_headers))))
+                .perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
+
+        onView(withText("Heat"))
+                .perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
+
+        onView(withId(R.id.device_control_slider))
+                .perform(
+                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
+                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
+                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
+                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
+                        pressKey(KeyEvent.KEYCODE_DPAD_RIGHT))
+                .check(matches(withProgressBetween(65, 75)));
+    }
+
+    public static Matcher<View> withProgressBetween(final int min, final int max) {
+        return new BoundedMatcher<View, SeekBar>(SeekBar.class) {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with progress between: " + min + " and " + max);
+            }
+
+            @Override
+            public boolean matchesSafely(SeekBar seekBar) {
+                return seekBar.getProgress() >= min && seekBar.getProgress() <= max;
+            }
+        };
     }
 }
