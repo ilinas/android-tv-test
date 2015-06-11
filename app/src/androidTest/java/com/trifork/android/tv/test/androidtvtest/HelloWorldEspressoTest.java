@@ -13,6 +13,7 @@ import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
@@ -81,6 +82,18 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
                         pressKey(KeyEvent.KEYCODE_DPAD_RIGHT),
                         pressKey(KeyEvent.KEYCODE_DPAD_RIGHT))
                 .check(matches(withProgressBetween(65, 75)));
+    }
+
+    public void testLightIsLightHeatIsHeat() {
+
+        onView(allOf(withText("HOME AUTOMATION"), instanceOf(RowHeaderView.class), isDescendantOfA(withId(R.id.browse_headers))))
+                .perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
+
+        onView(withText("Light")).perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withText("Light")).check(matches(isDisplayed())).perform(pressBack());
+
+        onView(withText("Heat")).perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withText("Heat")).check(matches(isDisplayed()));
     }
 
     public static Matcher<View> withProgressBetween(final int min, final int max) {
