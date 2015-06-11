@@ -211,8 +211,10 @@ public class MainFragment extends BrowseFragment {
             if (item instanceof Movie) {
                 mBackgroundURI = ((Movie) item).getBackgroundImageURI();
                 startBackgroundTimer();
+            } else if (item instanceof Device) {
+                mBackgroundURI = URI.create("http://icons.iconarchive.com/icons/thegirltyler/brand-camp/256/Camp-Fire-Stories-icon.png");
+                startBackgroundTimer();
             }
-
         }
     }
 
