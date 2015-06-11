@@ -43,6 +43,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.trifork.android.tv.test.androidtvtest.custom.Device;
+import com.trifork.android.tv.test.androidtvtest.custom.DeviceActivity;
 import com.trifork.android.tv.test.androidtvtest.custom.HomeAutomationPresenter;
 
 import java.net.URI;
@@ -123,7 +124,7 @@ public class MainFragment extends BrowseFragment {
 
         HomeAutomationPresenter homeAutomationPresenter = new HomeAutomationPresenter();
         ArrayObjectAdapter homeAutomationAdapter = new ArrayObjectAdapter(homeAutomationPresenter);
-        HeaderItem homeAutomationHeader = new HeaderItem(i, "HOME AUTOMATION");
+        HeaderItem homeAutomationHeader = new HeaderItem(++i, "HOME AUTOMATION");
 
         homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_light), 0, 100, 25, R.drawable.icon_lamp));
         homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_heat), 0, 100, 46, R.drawable.icon_heat));
@@ -199,7 +200,10 @@ public class MainFragment extends BrowseFragment {
                 }
             } else if (item instanceof Device) {
                 Device device = (Device) item;
-                Toast.makeText(getActivity(), String.valueOf(device.getValue()), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), DeviceActivity.class);
+                intent.putExtra(DeviceActivity.DEVICE_EXTRA, device);
+                getActivity().startActivity(intent);
             }
         }
     }
