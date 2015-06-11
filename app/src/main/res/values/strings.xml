@@ -37,4 +37,8 @@
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
     <string name="oops">Oops</string>
+
+    <string name="ha_light">Light</string>
+    <string name="ha_heat">Heat</string>
+    <string name="ha_lock">Lock</string>
 </resources>

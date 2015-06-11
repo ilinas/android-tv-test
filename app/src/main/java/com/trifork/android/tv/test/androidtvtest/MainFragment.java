@@ -42,6 +42,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.trifork.android.tv.test.androidtvtest.custom.Device;
+import com.trifork.android.tv.test.androidtvtest.custom.HomeAutomationPresenter;
 
 import java.net.URI;
 import java.util.Collections;
@@ -119,8 +121,16 @@ public class MainFragment extends BrowseFragment {
         gridRowAdapter.add(getResources().getString(R.string.personal_settings));
         mRowsAdapter.add(new ListRow(gridHeader, gridRowAdapter));
 
-        setAdapter(mRowsAdapter);
+        HomeAutomationPresenter homeAutomationPresenter = new HomeAutomationPresenter();
+        ArrayObjectAdapter homeAutomationAdapter = new ArrayObjectAdapter(homeAutomationPresenter);
+        HeaderItem homeAutomationHeader = new HeaderItem(i, "HOME AUTOMATION");
 
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_light), 0, 100, 25));
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_heat), 0, 100, 46));
+        homeAutomationAdapter.add(new Device(getResources().getString(R.string.ha_lock), 0, 100, 67));
+        mRowsAdapter.add(new ListRow(homeAutomationHeader, homeAutomationAdapter));
+
+        setAdapter(mRowsAdapter);
     }
 
     private void prepareBackgroundManager() {
@@ -187,6 +197,9 @@ public class MainFragment extends BrowseFragment {
                     Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT)
                             .show();
                 }
+            } else if (item instanceof Device) {
+                Device device = (Device) item;
+                Toast.makeText(getActivity(), String.valueOf(device.getValue()), Toast.LENGTH_SHORT).show();
             }
         }
     }
